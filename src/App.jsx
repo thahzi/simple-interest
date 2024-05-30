@@ -1,129 +1,110 @@
-
-import { useState } from 'react';
-import './App.css'
-import TextField from '@mui/material/TextField';
+import { useState } from 'react'
 import Button from '@mui/material/Button';
-
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
 
 function App() {
+  const [Principle, setPrinciple] = useState(0);
+  const [Year, setYear] = useState(0);
+  const [Rate, setRate] = useState(0);
+  const [Interest, setInterest] = useState(0);
+  const [isPrinciple, setIsPrinciple] = useState(true);
+  const [IsRate, setIsRate] = useState(true);
+  const [IsYear, setIsYear] = useState(true);
 
+  const validate= (e)=>{   /* Here we are assigning the usestate values comparing with the name given */
+    // console.log(e.target.value);
+    // console.log(e.target.name);
+    console.log(!!e.target.value.match(/^[0-9]*$/));
+    if(!!e.target.value.match(/^[0-9]*$/)){
+      if(e.target.name === "Principle"){
+        setPrinciple(e.target.value);
+        setIsPrinciple(true);
+        }
+       else if(e.target.name === "Rate"){
+        setRate(e.target.value);
+        setIsRate(true);
+        }
+      else{
+        setYear(e.target.value);
+        setIsYear(true);
+       }
+    }
+    else{
+      if(e.target.name === "Principle"){
+        setIsPrinciple(false);
+        }
+        else if(e.target.name === "Rate"){
+          setIsRate(false);
+          }
+          else{
+            setIsYear(false);
+            }
+      
+    }
+}
 
-  //state to hold value from input field
-  const [principle ,setPrinciple] = useState(0)
-  const [rate ,setRate] = useState(0)
-  const [year ,setYear] = useState(0)
-  const [interest ,setInterest] = useState(0)
+const handleReset=()=>{
+  setPrinciple(0);
+  setYear(0);
+  setRate(0);
+  setInterest(0);
+  setIsPrinciple(true);
+  setIsRate(true);
+  setIsYear(true);
+ 
+}
 
-  //for conditional rendering
-  const [isPrinciple, setIsPrinciple] = useState(true)
-  const [isRate, setIsRate] = useState(true)
-  const [isYear, setIsYear] = useState(true)
+const calculate=()=>{
 
-
-  const validate =(e)=>{
-    // console.log(e.target);
-    //  console.log(e.target.name);  
+    let interest = (Principle*Rate*Year)/100;
+    setInterest(interest);
     
-    let name = e.target.name
-    let value= e.target.value  
-    console.log(!!value.match(/^[0-9]*$/));
-
-   if (!!value.match(/^[0-9]*$/)) {
-    if(name=="principle"){
-      setPrinciple(value)
-      setPrinciple(true)
-    }
-    else if(name=="rate"){
-      setRate(value)
-      setRate(true)
-    }
-    else{
-      setYear(value)
-      setYear(true)
-    }
-   }
-   else{
-    if(name=="principle"){
-      // setPrinciple(value)
-      setPrinciple(false)
-    }
-    else if(name=="rate"){
-      // setRate(value)
-      setRate(false)
-    }
-    else{
-      // setYear(value)
-      setYear(false)
-    }
-   }
-
-   const handleReset =()=>{
-    setPrinciple(0)
-    setRate(0)
-    setYear(0)
-    setIsPrinciple(true)
-    setIsRate(true)
-    setIsYear(true)
-    setInterest(0)
-   }
-
-   const calculate = ()=>{
-    setInterest((principle*rate*year)/100)
-   }
-    // console.log('principle',principle);
-    // console.log('rate',rate);
-    // console.log('year',year);
-
-  }
+}
 
   return (
     <>
-      <div className=' d-flex justify-content-center align-items-center ' style={{width:'100',height:'100vh'}}>
-
-        <div className='bg-light rounded p-5'>
-          <h2 className=' '>Simple Interest App</h2>
-          <p>calculate your simple interest easily</p>
-
-          <div className='mt-5 bg-dark text-light p-3 rounded d-flex justify-content-center align-items-center shadow flex-column '>
-            <h4 className='fw-bold fs-2'>0</h4>
-            <p>total simple interest</p>     
-          </div>  
-          
-            <form>
-              <div className='mt-5'>
-              <TextField id="outlined-basic" value={principle || ""} 
-              label="Outlined" variant="outlined" 
-              onchange={(e)=>validate(e)} className='w-100'/>
-              {!isPrinciple &&
-                <p className='text-danger'>*invalid input</p>
-                }
-              </div>
-
-              <div className='mt-3'>
-              <TextField id="outlined-basic" value={rate || ""} label="Outlined" variant="outlined"  onchange={(e)=>validate(e)} className='w-100'/>
-              {!isRate &&
-                <p className='text-danger'>*invalid input</p>
-                }
-              </div>
-
-              <div className='mt-3'>
-              <TextField id="outlined-basic" value={year || ""}label="Outlined" variant="outlined"  onchange={(e)=>validate(e)} className='w-100'/>
-              {!isYear &&
-                <p className='text-danger'>*invalid input</p>
-                }
-              </div>
-
-              <div className='d-flex justify-content-between w-100 mt-4'>
-              <Button variant="contained" disabled={isPrinciple && isRate && isYear ? false:true} onClick={calculate} >calculate</Button>
-
-              <Button variant="contained" onClick={handleReset}>reset
-              </Button>
-              </div>
-
-            </form>
-          </div>
+    <div className='d-flex justify-content-center align-items-center' style={{width:'100%',height:'100vh'}}>
+      <div className='bg-light p-4 border rounded-4' style={{width:'450px'}} >
+        <h2 className=''>Simple Interest Application</h2>
+        <p className='card-text'>Calculate your simple interest easily</p>
+        <div className='mt-5 flex-column rounded-5 shadow bg-success d-flex justify-content-center align-items-center p-4'>
+          <h2>₹ {Interest}</h2>
+          <h5>Total Simple Interest</h5>
         </div>
-      
+          <form action="" className='mt-5'>
+            <div className='mb-3'>
+            <TextField id="outlined-basic" value={Principle || ""}  label="Principle Amount" variant="outlined" className='w-100' onChange={(e)=>validate(e)} name='Principle' />
+            {!isPrinciple &&
+             <p className='text-danger'>*Invalid Input</p>
+            }
+           
+            </div>
+            <div className='mb-3'>
+            <TextField id="outlined-basic" value={Rate || ""} label="Rate of Interest" variant="outlined" className='w-100' onChange={(e)=>validate(e)} name='Rate' />
+            {!IsRate &&
+            <p className='text-danger'>*Invalid Input</p>
+            }
+            </div>
+            <div className='mb-3'>
+            <TextField id="outlined-basic" value={Year || ""}  label="Year" variant="outlined" className='w-100' onChange={(e)=>validate(e)} name='Year' />
+            {!IsYear &&
+            <p className='text-danger'>*Invalid Input</p>
+            }
+            </div>
+            <div className='d-flex justify-content-between mt-4'>
+            <Button variant="contained" className='' color='success' style={{width:'190px',height:'60px'} } disabled={isPrinciple && IsRate && IsYear ? false:true} onClick={calculate}>CALCULATE</Button>
+             <Button variant="outlined" className='' style={{width:'190px',height:'60px'}} onClick={handleReset}>RESET</Button>
+            </div>
+          </form>
+          </div>
+       
+        
+        
+   </div>
     </>
   )
 }
