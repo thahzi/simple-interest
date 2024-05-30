@@ -71,7 +71,7 @@ const calculate=()=>{
       <div className='bg-light p-4 border rounded-4' style={{width:'450px'}} >
         <h2 className=''>Simple Interest Application</h2>
         <p className='card-text'>Calculate your simple interest easily</p>
-        <div className='mt-5 flex-column rounded-5 shadow bg-success d-flex justify-content-center align-items-center p-4'>
+        <div className='mt-5 flex-column rounded-5 shadow bg-warning d-flex justify-content-center align-items-center p-4'>
           <h2>₹ {Interest}</h2>
           <h5>Total Simple Interest</h5>
         </div>
@@ -96,7 +96,7 @@ const calculate=()=>{
             }
             </div>
             <div className='d-flex justify-content-between mt-4'>
-            <Button variant="contained" className='' color='success' style={{width:'190px',height:'60px'} } disabled={isPrinciple && IsRate && IsYear ? false:true} onClick={calculate}>CALCULATE</Button>
+            <Button variant="contained" className='' color='primary' style={{width:'190px',height:'60px'} } disabled={isPrinciple && IsRate && IsYear ? false:true} onClick={calculate}>CALCULATE</Button>
              <Button variant="outlined" className='' style={{width:'190px',height:'60px'}} onClick={handleReset}>RESET</Button>
             </div>
           </form>
